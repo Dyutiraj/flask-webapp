@@ -33,7 +33,7 @@ pipeline {
                 script{
                     sshagent(['cc6900e9-079c-4a61-becf-3862b5dab61a']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no jenkins@100.27.26.141 << EOF
+                        ssh -o StrictHostKeyChecking=no ubuntu@100.27.26.141 << EOF
                         docker pull ${REPOSITORY_URI}:${IMAGE_TAG}
                         docker run -d --name your-container-name -p 5000:5000 ${REPOSITORY_URI}:${IMAGE_TAG}
                         EOF
