@@ -33,6 +33,7 @@ pipeline {
                 script{
                     sshagent(['cc6900e9-079c-4a61-becf-3862b5dab61a']) {
                         sh """ssh -o StrictHostKeyChecking=no ubuntu@100.27.26.141"""
+                        sh """aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 024848458348.dkr.ecr.us-east-1.amazonaws.com"""
                         sh"""docker pull ${REPOSITORY_URI}:${IMAGE_TAG}"""
                         sh"""docker run -d --name your-container-name -p 5000:5000 ${REPOSITORY_URI}:${IMAGE_TAG}"""
                     }
