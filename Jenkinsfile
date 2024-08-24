@@ -31,7 +31,7 @@ pipeline {
         stage ('Deploy to EC2'){
             steps{
                 script{
-                    sshagent(['64bfa5a8-810a-49fb-b212-634786144456']) {
+                    sshagent(['cc6900e9-079c-4a61-becf-3862b5dab61a']) {
                         sh """
                         ssh -o StrictHostKeyChecking=no jenkins@100.27.26.141 << EOF
                         docker pull ${REPOSITORY_URI}:${IMAGE_TAG}
