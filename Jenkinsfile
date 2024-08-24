@@ -1,14 +1,15 @@
 pipeline {
     agent any
-    environment {
+    environment{
         IMAGE_REPO_NAME="flask-webapp"
         IMAGE_TAG=${env.BUILD_NUMBER}
-        REPOSITORY_URI = "024848458348.dkr.ecr.us-east-1.amazonaws.com/dyutiraj/webapp"
+        REPOSITORY_URI ="024848458348.dkr.ecr.us-east-1.amazonaws.com/dyutiraj/webapp"
     }
-    stage('Build') { 
-            steps { 
-                script{
-                     dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+    stages {
+        stage ('Bulinding Image') {
+            steps{
+                script {
+                    dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
                 }
             }
         }
