@@ -31,10 +31,13 @@ pipeline {
         stage ('Deploy to EC2'){
             steps{
                 script{
-                    echo 'Deploying docker image to EC2'
-                    def dockerCmd = "docker run -p 5000:5000 -d ${REPOSITORY_URI}:${IMAGE_TAG}"
-                sshagent(['64bfa5a8-810a-49fb-b212-634786144456']) {
-                    sh "ssh -o StrictHostKeyChecking=no jenkins@100.27.26.141 ${dockerCmd}"
+                    sshagent(['64bfa5a8-810a-49fb-b212-634786144456']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no jenkins@100.27.26.141 ${dockerCmd}"
+                    docker pull ${REPOSITORY_URI}:${IMAGE_TAG}
+                    docker run -d --name your-container-name -p 5000:5000 ${REPOSITORY_URI}:${IMAGE_TAG}
+                    EOF
+                    """
                 }
             }
         }
